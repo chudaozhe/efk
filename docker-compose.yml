@@ -1,0 +1,56 @@
+version: '3'
+
+networks:
+  elastic:
+
+services:
+  php:
+    image: php:7.4-apache
+    container_name: php
+    ports:
+      - 80:80
+    tty: true
+    volumes:
+      - ./php/www:/var/www/html
+    networks:
+      - elastic
+
+  fluentd:
+    image: fluentd:v1.9-1.1
+    container_name: fluentd
+    volumes:
+      - ./fluentd/conf:/fluentd/etc
+      - ./log:/var/log
+    ports:
+      - 9880:9880
+      - 24224:24224
+      - 24224:24224/udp
+    networks:
+      - elastic
+
+  elasticsearch:
+    image: elasticsearch:7.14.1
+    container_name: elasticsearch
+    networks:
+      - elastic
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - 9200:9200
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: kibana:7.14.1
+    container_name: kibana
+    networks:
+      - elastic
+#    environment:
+#      - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml

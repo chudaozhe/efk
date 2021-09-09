@@ -1,0 +1,7 @@
+.DS_Store
+
+/.idea
+/elasticsearch/data
+/log
+/php/www/vendor
+/php/www/composer.lock
