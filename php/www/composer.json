@@ -4,7 +4,7 @@
     {"packagist": false}
   ],
   "require": {
-    "fluent/logger": "v1.0.0",
+    "fluent/logger": "v1.0.1",
     "elasticsearch/elasticsearch": "^v7.14.0"
   },
   "config": {
