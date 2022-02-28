@@ -29,6 +29,7 @@ services:
       - ./log:/var/log
     ports:
       - 9880:9880
+      - 24220:24220
       - 24224:24224
       - 24224:24224/udp
     networks:
