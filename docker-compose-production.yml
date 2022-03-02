@@ -7,18 +7,6 @@ networks:
     external: true
 
 services:
-#  php:
-#    image: php:7.4-apache
-#    container_name: php
-#    restart: always
-#    tty: true
-#    volumes:
-#      - ./php/www:/var/www/html
-#    ports:
-#      - 80:80
-#    networks:
-#      - server_web-network
-
   fluentd:
     image: registry.cn-hangzhou.aliyuncs.com/cuiw/fluentd:v1.9-1
     container_name: fluentd
@@ -34,16 +22,6 @@ services:
       - 24224:24224/udp
     networks:
       - server_web-network
-
-#  fluentd-ui:
-#    image: registry.cn-hangzhou.aliyuncs.com/cuiw/fluentd-ui:20220301
-#    container_name: fluentd-ui
-#    restart: always
-#    tty: true
-#    ports:
-#      - 9292:9292
-#    networks:
-#      - server_web-network
 
   elasticsearch:
     image: elasticsearch:7.17.0
