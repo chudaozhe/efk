@@ -36,6 +36,7 @@ services:
       - ./elasticsearch/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elasticsearch/logs:/usr/share/elasticsearch/logs:rw
       - ./elasticsearch/backup:/usr/share/elasticsearch/backup:rw
+      - ./elasticsearch/plugins:/usr/share/elasticsearch/plugins:rw
     ports:
       - 9200:9200
     networks:
