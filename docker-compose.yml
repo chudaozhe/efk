@@ -77,3 +77,19 @@ services:
       - 5601:5601
     networks:
       - server_web-network
+
+  logstash:
+    image: logstash:7.17.0
+    container_name: logstash
+    restart: always
+    tty: true
+    environment:
+      discovery.seed_hosts: logstash
+      LS_JAVA_OPTS: "-Xms512m -Xmx512m"
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - 5044:5044
+      - 8099:8099
+    networks:
+      - server_web-network
