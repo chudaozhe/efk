@@ -22,6 +22,7 @@ services:
   fluentd:
     image: registry.cn-hangzhou.aliyuncs.com/cuiw/fluentd:v1.9-1
     container_name: fluentd
+    hostname: fluentd
     restart: always
     tty: true
     volumes:
@@ -48,6 +49,7 @@ services:
   elasticsearch:
     image: elasticsearch:7.17.0
     container_name: elasticsearch
+    hostname: elasticsearch
     restart: always
     tty: true
     environment:
@@ -67,6 +69,7 @@ services:
   kibana:
     image: kibana:7.17.0
     container_name: kibana
+    hostname: kibana
     restart: always
     tty: true
 #    environment:
@@ -81,13 +84,15 @@ services:
   logstash:
     image: logstash:7.17.0
     container_name: logstash
+    hostname: logstash
     restart: always
     tty: true
     environment:
-      discovery.seed_hosts: logstash
       LS_JAVA_OPTS: "-Xms512m -Xmx512m"
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - ./logstash/patterns:/usr/share/logstash/patterns
+      - ../log/nginx:/var/log/nginx
     ports:
       - 5044:5044
       - 8099:8099
